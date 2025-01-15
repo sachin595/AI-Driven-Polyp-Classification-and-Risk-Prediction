@@ -18,14 +18,16 @@ AI-Driven Real-Time Classification and Risk Prediction of Colorectal Polyps
 5. [Implementation Approach](#implementation-approach)
    - [Multimodal AI Framework](#multimodal-ai-framework)
    - [Fusion Model](#fusion-model)
-6. [Goals](#goals)
-   - [Goal 1: Classification and Detection](#goal-1-classification-and-detection)
-   - [Goal 2: Risk Stratification](#goal-2-risk-stratification)
-   - [Goal 3: Demographic and Anatomical Insights](#goal-3-demographic-and-anatomical-insights)
-7. [Recommendations](#recommendations)
-8. [Future Directions](#future-directions)
-9. [Summary](#summary)
-10. [License](#license)
+6. [Objectives](#objectives)
+   - [Objective 1: Classification and Detection](#objective-1-classification-and-detection)
+   - [Objective 2: Risk Stratification](#objective-2-risk-stratification)
+   - [Objective 3: Demographic and Anatomical Insights](#objective-3-demographic-and-anatomical-insights)
+7. [Workflow Diagram](#workflow-diagram)
+8. [Correlation Insights](#correlation-insights)
+9. [Recommendations](#recommendations)
+10. [Future Directions](#future-directions)
+11. [Summary](#summary)
+12. [License](#license)
 ---
 ## **Abstract**
 Colorectal cancer is a leading cause of cancer-related deaths worldwide. Early detection and accurate polyp classification are critical for effective treatment and prognosis. Despite advancements, real-time detection and malignancy risk stratification during endoscopy remain challenging. This project leverages the ERCPMP-v5 dataset to enhance real-time polyp detection, classification, and risk prediction, improving clinical decision-making during endoscopic procedures.
@@ -33,7 +35,7 @@ Colorectal cancer is a leading cause of cancer-related deaths worldwide. Early d
 ---
 
 ## **Project Objectives**
-The primary goals of this project are:
+The primary objectives of this project are:
 1. **Classification and Detection:** Automatically classify colorectal polyps based on morphology (Paris classification) and pathology (diagnostic categories such as Tubular, Villous, Adenocarcinoma).
 2. **Risk Stratification:** Estimate the likelihood of malignancy for polyps, categorizing them into low, moderate, and high-risk levels.
 3. **Demographic and Anatomical Insights:** Identify patterns in polyp characteristics based on age, gender, and anatomical location to refine early screening guidelines.
@@ -99,59 +101,110 @@ Multimodal Learning: A fusion model integrates multiple or diverse data types, c
 
 ---
 
-## **Goals**
+## **Objectives**
 
-### **Goal 1: Classification and Detection**
-- **Objective:** Classify polyps based on morphology and pathology.
-- **Implementation:**
+### **Objective 1: Classification and Detection**
+#### **Objective:** Classify polyps based on morphology and pathology.
+#### **Implementation:**
   - Combined image features (Vision Transformer) and tabular data.
   - Random Forest Classifiers trained for morphology and pathology.
-- **Results:**
+#### **Results:**
   - Morphology Classification Accuracy: 94.94%
   - Pathology Classification Accuracy: 99.05%
-- **Outputs:** Predicted pathology and morphology categories.
-- **Feature Importance:**
+#### **Outputs:** Predicted pathology and morphology categories.
+#### **Feature Importance:**
 - The following plots illustrate the key features contributing to classification accuracy:
-  - 1.	Morphology Feature Importance
-        - Top features include Pit_I, Size_cm, and Polyp_Location_Sigmoid. 
+ - 1.	Morphology Feature Importance
+        - Top features include : Pit_I, Size_cm, and Polyp_Location_Sigmoid. 
   - 2.	Pathology Feature Importance
-        -	Top features include Pit_I, Pit_2A, and Pit_III. 
+        -	Top features include : Pit_I, Pit_2A, and Pit_III. 
 
   ![Morphology Feature Importance](morphology_feature_imp.png)
   ![Pathology Feature Importance](pathology_feature_imp.png)
 
 ---
 
-### **Goal 2: Risk Stratification**
-- **Objective:** Categorize polyps into risk levels (low, moderate, high).
-- **Implementation:**
-  - Random Forest Classifier trained on metadata and image features.
-- **Results:**
-  - Accuracy: 99.58%
-  - Recall for Malignant Polyps: 96%
-  - F1-Score: 0.98
-- **Risk Levels:**
-  - Low Risk: Probability ≤ 0.3
-  - Moderate Risk: Probability 0.3–0.7
-  - High Risk: Probability > 0.7
+### **Objective 2: Risk Stratification**
+#### **Objective:** Estimate the likelihood of malignancy for each polyp type, stratifying polyps into risk categories:
+-	**Low Risk:** Routine monitoring.
+-	**Moderate Risk:** Regular follow-ups.
+-	**High Risk:** Immediate attention.
 
+#### **Implementation:**
+##### 1.	Malignancy Column:
+	- Binary Target: Created based on diagnosis.
+	      - Malignant (1): Adenocarcinoma, Villous.
+	      - Benign (0): All other polyps.
+##### 2.	Risk Levels:
+      -	High Risk: Adenocarcinoma or Villous.
+      -	Moderate Risk: Tubulovillous or Serrated.
+      -	Low Risk: All others.
+
+#### **Model & Results:**
+  - **Model:** Random Forest Classifier trained on combined metadata and image features.
+  - **Accuracy:** 99.58%
+  - **Recall for Malignant Polyps:** 96%
+  - **F1-Score:** 0.98
+#### **Outputs:**
+- ##### **Malignancy Probability:** Probability (0-1) of malignancy.
+- ##### **Predicted Risk Level:**
+            - Low Risk: Probability ≤ 0.3.
+            - Moderate Risk: Probability 0.3–0.7.
+            - High Risk: Probability > 0.7.
+- ##### **Polyp Type:** Identifies types (e.g., Tubular, Villous).
 ---
 
-### **Goal 3: Demographic and Anatomical Insights**
+### **Objective 3: Demographic and Anatomical Insights**
 1. **Average Polyp Size by Anatomical Location**
+#### **Observation:**
+      - The largest average polyp size is observed in the Ascending Colon and Rectum (≈2.5 cm).
+      - Polyp sizes in other regions (e.g., Descending Colon, Sigmoid) are significantly smaller (≈0.5 cm).
+#### **Clinical Relevance:**
+      - Larger polyps in the Ascending Colon and Rectum may warrant closer monitoring or early intervention strategies.
+
    ![Average Polyp Size by Location](avg_polyp_size_by_anatomical%20location.png)
 
 2. **Polyp Type Prevalence by Anatomical Location**
+#### **Observation:**
+      - The Anastomosis region shows the highest number of polyps, dominated by Hyperplastic polyps.
+      - Villous polyps, which are more likely to be malignant, are most prevalent in the Rectum.
+      - Serrated polyps are seen in various locations, with significant representation in the Sigmoid region.
+#### **Clinical Relevance:**
+      - Certain regions like the Rectum may serve as hotspots for high-risk polyp types (e.g., Villous, Adenocarcinoma), requiring targeted screening.
+
    ![Polyp Type Prevalence by Location](polyp_type_prevalence_by_anatomical_location.png)
 
 3. **Average Polyp Size by Gender**
+#### **Observation:**
+      - Males exhibit larger average polyp sizes (≈0.9 cm) compared to females (≈0.5 cm).
+#### **Clinical Relevance:**
+      - Gender-based differences in polyp size highlight the need for gender-specific screening guidelines.
    ![Average Polyp Size by Gender](avg_polyp_size_by_gender.png)
 
 4. **Polyp Type Prevalence by Gender**
+#### **Observation:**
+      - Hyperplastic polyps are the most prevalent in both genders, but males show higher counts of high-risk polyp types (e.g., Villous and Adenocarcinoma).
+#### **Clinical Relevance:**
+      - Males may require more aggressive screening for high-risk polyps due to their higher prevalence.
    ![Polyp Type Prevalence by Gender](polyp_type_prevalence_by_gender.png)
 
 5. **Polyp Type Prevalence by Age Group**
+#### **Observation:**
+      - The prevalence of polyps increases significantly after age 50, with a peak in the 60–70 age group.
+      - Hyperplastic polyps are dominant across all age groups, while high-risk polyps (e.g., Villous) are more common in older age groups (70+).
+
+#### **Clinical Relevance:**
+      - Early screening should be prioritized for individuals aged 50+ to detect high-risk polyps during the window of increased prevalence..
    ![Polyp Type Prevalence by Age Group](polyp_type_prevalence_by_age_group.png)
+
+---
+## **Workflow Diagram**
+![Workflow](workflow1.png)
+
+---
+
+## **Correlation Insights**
+![Correlation Matrix](demographics_vs_polyp_characteristics.png)
 
 ---
 
@@ -187,10 +240,3 @@ This project is licensed under the **Attribution 4.0 International (CC BY 4.0)**
 
 ---
 
-## **Workflow Diagram**
-![Workflow](workflow1.png)
-
----
-
-## **Correlation Insights**
-![Correlation Matrix](demographics_vs_polyp_characteristics.png)
