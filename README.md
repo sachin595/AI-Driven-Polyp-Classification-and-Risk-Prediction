@@ -66,14 +66,14 @@ Prepared by experts in Gastroenterology, Hematology, Oncology, and Artificial In
 2. **Image and Video PreProcessing**:
     - Images and videos are processed to ensure that they are correctly associated with the corresponding Patient_ID.
     - Frames extracted at 2 FPS, resized to 224x224 pixels, and normalized to [0, 1].
-4. **Data Merging**:
+3. **Data Merging**:
    - Using Patient_ID as a key, image paths are merged with the metadata.
    - This links each image/frame with the corresponding demographic, morphological, and pathological details.
-6. **Splitting the Dataset**:
+4. **Splitting the Dataset**:
    - Training Set (60%)
    - Validation Set (20%)
    - Test Set (20%)
-7. **Final Dataset Creation**: The final dataset includes:
+5. **Final Dataset Creation**: The final dataset includes:
 	- Metadata: Patient and polyp-specific information (size, morphology, diagnosis, etc.).
 	- Image Paths: Linking images/frames to patient metadata.
 	- Split Information: Indicates whether an entry belongs to training, validation, or test sets.
