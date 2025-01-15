@@ -63,16 +63,20 @@ Prepared by experts in Gastroenterology, Hematology, Oncology, and Artificial In
 1. **Metadata Preprocessing**: Patinet_ID is the Unique identifier for each patient with morphological and pathological details.
     - Scaled numerical features (e.g., age, polyp size).
     - One-hot encoded categorical features (e.g., dysplasia grade, morphology classification).
-2. **Image and Video PreProcessing**: Images and videos are processed to ensure that they are correctly associated with the corresponding Patient_ID.Frames extracted at 2 FPS, resized to 224x224 pixels, and normalized to [0, 1].
-3. **Data Merging**: Using Patient_ID as a key, image paths are merged with the metadata. This links each image/frame with the corresponding demographic, morphological, and pathological details.
-4. **Splitting the Dataset**:
+2. **Image and Video PreProcessing**:
+    - Images and videos are processed to ensure that they are correctly associated with the corresponding Patient_ID.
+    - Frames extracted at 2 FPS, resized to 224x224 pixels, and normalized to [0, 1].
+4. **Data Merging**:
+   - Using Patient_ID as a key, image paths are merged with the metadata.
+   - This links each image/frame with the corresponding demographic, morphological, and pathological details.
+6. **Splitting the Dataset**:
    - Training Set (60%)
    - Validation Set (20%)
    - Test Set (20%)
-5. **Final Dataset Creation**: The final dataset includes:
-- Metadata: Patient and polyp-specific information (size, morphology, diagnosis, etc.).
-- Image Paths: Linking images/frames to patient metadata.
-- Split Information: Indicates whether an entry belongs to training, validation, or test sets.
+7. **Final Dataset Creation**: The final dataset includes:
+	- Metadata: Patient and polyp-specific information (size, morphology, diagnosis, etc.).
+	- Image Paths: Linking images/frames to patient metadata.
+	- Split Information: Indicates whether an entry belongs to training, validation, or test sets.
 
 ---
 
