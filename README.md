@@ -1,4 +1,4 @@
-# AI-Driven-Polyp-Classification-and-Risk-Prediction
+# AI Driven Polyp Classification and Risk Prediction
 AI-Driven Real-Time Classification and Risk Prediction of Colorectal Polyps
 
 ![Research Medical AI](https://img.shields.io/badge/Research-Medical%20AI-green.svg)
